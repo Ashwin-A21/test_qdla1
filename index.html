@@ -14,7 +14,7 @@
             --light: #ffffff;
             --shadow: #c2cbd8;
             --accent: #0066ff;
-            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         *, *::before, *::after {
@@ -217,7 +217,7 @@
         .col-3 { grid-column: span 3; }
         .row-2 { grid-row: span 2; }
 
-        /* Project Cards */
+        /* Project Cards Enhanced */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -225,24 +225,94 @@
         }
 
         .project-card {
-            padding: 3.5rem;
+            padding: 4rem;
             aspect-ratio: 1.2/1;
             text-decoration: none;
             color: inherit;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
+            z-index: 1;
         }
 
         .project-card h3 { 
-            font-size: 5rem; 
+            font-size: 5.5rem; 
             font-family: "Alumni Sans Pinstripe", sans-serif; 
             font-weight: 400; 
             transition: var(--transition);
             line-height: 0.8;
+            position: relative;
+            z-index: 5;
+            pointer-events: none;
         }
 
-        .project-card .tag { font-size: 0.7rem; letter-spacing: 4px; opacity: 0.4; margin-bottom: 1rem; display: block; }
+        .project-card .tag { 
+            font-size: 0.75rem; 
+            letter-spacing: 4px; 
+            opacity: 0.4; 
+            margin-bottom: 1rem; 
+            display: block; 
+            position: relative;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .project-card p {
+            position: relative;
+            z-index: 5;
+            text-transform: none;
+            opacity: 0.5;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+
+        .project-card:hover h3 { color: var(--accent); }
+        .project-card:hover p { opacity: 0.8; color: var(--text); }
+
+        /* Inward Full Card Image Container */
+        .project-image-view {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(1.05);
+            transition: var(--transition);
+            z-index: 0;
+        }
+
+        .project-card:hover .project-image-view {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .project-image-view img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.1);
+            opacity: 0.3;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-image-view img {
+            filter: grayscale(0%) contrast(1);
+            opacity: 0.4; /* Keeping it low to maintain text readability */
+        }
+
+        /* Enhanced Vignette mask for full-bleed blended edges */
+        .project-image-view::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            box-shadow: inset 0 0 60px 20px var(--bg),
+                        inset 0 0 120px 40px var(--bg);
+            pointer-events: none;
+            z-index: 2;
+        }
 
         /* Toolkit */
         .pill-box {
@@ -260,7 +330,7 @@
 
         /* Contact */
         .contact-card {
-            padding: 8vh 2vw;
+            padding: 10vh 2vw;
             text-align: center;
         }
 
@@ -317,6 +387,7 @@
             .section-header { margin-bottom: 3rem; }
             .bento-val { font-size: 4rem; }
             .project-card h3 { font-size: 4rem; }
+            .project-image-view { border-radius: 2.5rem; }
             nav { 
                 bottom: 2rem; top: auto; left: 50%; 
                 transform: translateX(-50%); flex-direction: row; 
@@ -412,32 +483,44 @@
             </div>
             <div class="project-grid">
                 <a href="#" class="neu-depth project-card reveal magnetic">
+                    <div class="project-image-view">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" alt="Core Sync" onerror="this.src='https://via.placeholder.com/1200x800?text=CORE_SYNC'">
+                    </div>
                     <div>
                         <span class="tag">BACKEND</span>
                         <h3>CORE_SYNC</h3>
                     </div>
-                    <p style="text-transform: none; opacity: 0.5;">Real-time data synchronization engine.</p>
+                    <p>Real-time data synchronization engine.</p>
                 </a>
                 <a href="#" class="neu-depth project-card reveal magnetic">
+                    <div class="project-image-view">
+                        <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=1200&q=80" alt="QDLA World" onerror="this.src='https://via.placeholder.com/1200x800?text=QDLA_WORLD'">
+                    </div>
                     <div>
                         <span class="tag">SPATIAL</span>
                         <h3>QDLA_WORLD</h3>
                     </div>
-                    <p style="text-transform: none; opacity: 0.5;">Interactive 3D environment research.</p>
+                    <p>Interactive 3D environment research.</p>
                 </a>
                 <a href="#" class="neu-depth project-card reveal magnetic">
+                    <div class="project-image-view">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80" alt="Modular OS" onerror="this.src='https://via.placeholder.com/1200x800?text=MODULAR_OS'">
+                    </div>
                     <div>
                         <span class="tag">INTERFACE</span>
                         <h3>MODULAR_OS</h3>
                     </div>
-                    <p style="text-transform: none; opacity: 0.5;">Component-driven design system.</p>
+                    <p>Component-driven design system.</p>
                 </a>
                 <a href="#" class="neu-depth project-card reveal magnetic">
+                    <div class="project-image-view">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" alt="Sync Layers" onerror="this.src='https://via.placeholder.com/1200x800?text=SYNC_LAYERS'">
+                    </div>
                     <div>
                         <span class="tag">INFRA</span>
                         <h3>SYNC_LAYERS</h3>
                     </div>
-                    <p style="text-transform: none; opacity: 0.5;">Multi-tenant cloud architecture.</p>
+                    <p>Multi-tenant cloud architecture.</p>
                 </a>
             </div>
         </div>
@@ -489,7 +572,6 @@
                 cursor.style.top = `${y}px`;
             }
             if (follower) {
-                // Smooth lag effect
                 setTimeout(() => {
                     follower.style.left = `${x}px`;
                     follower.style.top = `${y}px`;
