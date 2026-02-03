@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QDLA | Web Development Startup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital,wght@0,400;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #e0e5ec;
+            --text: #2d3436;
+            --light: #ffffff;
+            --shadow: #a3b1c6;
+            --accent: #007aff;
+            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            text-transform: uppercase;
+            line-height: 1.2;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Ambient Overlays */
+        .grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* Neumorphic Core Classes */
+        .neu-depth {
+            box-shadow: 9px 9px 16px var(--shadow), -9px -9px 16px var(--light);
+            border-radius: 2rem;
+            background: var(--bg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        /* Unified Pressed Hover Effect */
+        .neu-depth:hover {
+            box-shadow: inset 6px 6px 12px var(--shadow), inset -6px -6px 12px var(--light);
+            transform: scale(0.99);
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--text);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: difference;
+        }
+
+        #follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--text);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: width 0.3s, height 0.3s, background 0.3s, transform 0.1s ease-out;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            left: 3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            z-index: 1000;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--bg);
+            box-shadow: 3px 3px 6px var(--shadow), -3px -3px 6px var(--light);
+            transition: var(--transition);
+        }
+
+        .nav-dot.active {
+            box-shadow: inset 2px 2px 4px var(--shadow), inset -2px -2px 4px var(--light);
+            transform: scale(1.3);
+            background: var(--accent);
+        }
+
+        /* Hero Section */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: "Alumni Sans Pinstripe", sans-serif;
+            font-size: clamp(6rem, 25vw, 18rem);
+            letter-spacing: -10px;
+            line-height: 0.8;
+            overflow: hidden;
+        }
+
+        .hero-title span {
+            display: block;
+            transform: translateY(100%);
+            animation: revealTitle 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        @keyframes revealTitle {
+            to { transform: translateY(0); }
+        }
+
+        /* Bento Grid Section */
+        .bento-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(200px, auto);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .bento-item {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: default;
+        }
+
+        .bento-item.large { grid-column: span 2; grid-row: span 2; }
+        .bento-item.wide { grid-column: span 2; }
+        .bento-item.tall { grid-row: span 2; }
+
+        .bento-item h4 { font-size: 0.8rem; opacity: 0.5; letter-spacing: 4px; transition: var(--transition); }
+        .bento-item p { font-size: 1.2rem; margin-top: 1rem; text-transform: none; color: #555; transition: var(--transition); }
+        .bento-item:hover h4, .bento-item:hover p { color: var(--accent); opacity: 1; }
+        .bento-val { font-size: 4rem; font-family: "Alumni Sans Pinstripe", sans-serif; transition: var(--transition); }
+        .bento-item:hover .bento-val { color: var(--accent); }
+
+        /* Project Cards */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+        }
+
+        .project-card {
+            padding: 4rem;
+            aspect-ratio: 1/1.1;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .project-card:hover h3 { color: var(--accent); }
+
+        .project-card h3 { font-size: 4.5rem; font-family: "Alumni Sans Pinstripe", sans-serif; font-weight: 400; transition: var(--transition); }
+        .project-card .tag { font-size: 0.7rem; letter-spacing: 4px; opacity: 0.4; transition: var(--transition); }
+
+        /* Toolkit Section */
+        .pill-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .pill {
+            padding: 1.5rem 3rem;
+            font-size: 1.2rem;
+            cursor: default;
+        }
+
+        .pill:hover {
+            color: var(--accent);
+        }
+
+        /* Section Layouts */
+        section {
+            padding: 15vh 10vw;
+            min-height: 100vh;
+        }
+
+        .section-header {
+            margin-bottom: 6rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .section-line {
+            height: 1px;
+            flex-grow: 1;
+            background: var(--shadow);
+        }
+
+        .section-tag {
+            font-size: 0.8rem;
+            letter-spacing: 6px;
+            opacity: 0.5;
+        }
+
+        /* Footer & Contact */
+        .contact-card {
+            padding: 10vh 5vw;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .contact-card:hover .big-link {
+            letter-spacing: 15px;
+            color: var(--accent);
+        }
+
+        .big-link {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-family: "Alumni Sans Pinstripe", sans-serif;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            margin: 2rem 0;
+            transition: var(--transition);
+        }
+
+        footer {
+            padding: 4rem 10vw;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            opacity: 0.4;
+            letter-spacing: 3px;
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1024px) {
+            .bento-container { grid-template-columns: repeat(2, 1fr); }
+            .project-grid { grid-template-columns: 1fr; }
+            nav { left: auto; right: 2rem; }
+            body { cursor: auto; }
+            #cursor, #follower { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grain"></div>
+    <div id="cursor"></div>
+    <div id="follower"></div>
+
+    <nav>
+        <a href="#home" class="nav-dot active" title="Home"></a>
+        <a href="#about" class="nav-dot" title="Mission"></a>
+        <a href="#work" class="nav-dot" title="Exhibits"></a>
+        <a href="#stack" class="nav-dot" title="Stack"></a>
+        <a href="#contact" class="nav-dot" title="Contact"></a>
+    </nav>
+
+    <header id="home">
+        <h1 class="hero-title"><span>QDLA</span></h1>
+        <p class="reveal" style="letter-spacing: 12px; opacity: 0.4; margin-top: 2rem;">WEB DEVELOPMENT STARTUP // ARCHITECTS</p>
+    </header>
+
+    <!-- Bento Grid Section -->
+    <section id="about">
+        <div class="section-header reveal">
+            <span class="section-tag">MISSION_STATEMENT</span>
+            <div class="section-line"></div>
+        </div>
+        <div class="bento-container">
+            <div class="neu-depth bento-item large reveal">
+                <h4>PURPOSE</h4>
+                <div class="bento-val">01</div>
+                <p>QDLA builds high-performance digital ecosystems where technical complexity meets intuitive UI logic.</p>
+            </div>
+            <div class="neu-depth bento-item reveal">
+                <h4>AGILE</h4>
+                <div class="bento-val">DEV</div>
+                <p>Fast deployment. Scalable code.</p>
+            </div>
+            <div class="neu-depth bento-item reveal">
+                <h4>ORIGIN</h4>
+                <p>GLOBAL<br>REMOTE<br>DIRECT</p>
+            </div>
+            <div class="neu-depth bento-item wide reveal">
+                <h4>CAPABILITIES</h4>
+                <div class="bento-val">CLOUD</div>
+                <p>Enterprise infrastructure engineered for the modern web.</p>
+            </div>
+            <div class="neu-depth bento-item tall reveal">
+                <h4>PRECISION</h4>
+                <div class="bento-val">99.9%</div>
+                <p>Optimized uptime and flawless interactive performance.</p>
+            </div>
+            <div class="neu-depth bento-item reveal">
+                <h4>EST.</h4>
+                <div class="bento-val">2026</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="work">
+        <div class="section-header reveal">
+            <span class="section-tag">ENGINEERED_EXHIBITS</span>
+            <div class="section-line"></div>
+        </div>
+        <div class="project-grid">
+            <a href="#" class="neu-depth project-card reveal magnetic">
+                <span class="tag">BACKEND</span>
+                <h3>CORE<br>SYNC</h3>
+            </a>
+            <a href="#" class="neu-depth project-card reveal magnetic">
+                <span class="tag">SPATIAL</span>
+                <h3>QDLA<br>WORLD</h3>
+            </a>
+            <a href="#" class="neu-depth project-card reveal magnetic">
+                <span class="tag">INTERFACE</span>
+                <h3>MODULAR</h3>
+            </a>
+            <a href="#" class="neu-depth project-card reveal magnetic">
+                <span class="tag">ARCHITECTURE</span>
+                <h3>INFRA</h3>
+            </a>
+        </div>
+    </section>
+
+    <section id="stack">
+        <div class="section-header reveal">
+            <span class="section-tag">CORE_STACK</span>
+            <div class="section-line"></div>
+        </div>
+        <div class="pill-box">
+            <div class="neu-depth pill reveal">NEXT.JS ENGINE</div>
+            <div class="neu-depth pill reveal">THREE.JS / WEBGL</div>
+            <div class="neu-depth pill reveal">DOCKER / CLOUD</div>
+            <div class="neu-depth pill reveal">SCALABLE UI</div>
+            <div class="neu-depth pill reveal">NODE ARCHITECTURE</div>
+            <div class="neu-depth pill reveal">TYPESCRIPT</div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="neu-depth contact-card reveal">
+            <span class="section-tag">START_SESSION</span>
+            <a href="mailto:hello@qdla.dev" class="big-link magnetic">GET IN TOUCH</a>
+            <p style="opacity: 0.4; letter-spacing: 5px;">WWW.QDLA.DEV</p>
+        </div>
+    </section>
+
+    <footer>
+        <div>QDLA // WEB DEVELOPMENT STARTUP</div>
+        <div>ALL RIGHTS RESERVED 2026</div>
+    </footer>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('follower');
+
+        // Mouse Engine
+        document.addEventListener('mousemove', (e) => {
+            const { clientX: x, clientY: y } = e;
+            cursor.style.left = `${x}px`;
+            cursor.style.top = `${y}px`;
+            
+            // Lagged follower
+            follower.style.left = `${x}px`;
+            follower.style.top = `${y}px`;
+        });
+
+        // Magnetic Effect
+        const magnets = document.querySelectorAll('.magnetic');
+        magnets.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                el.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+                follower.style.width = '100px';
+                follower.style.height = '100px';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = `translate(0,0)`;
+                follower.style.width = '40px';
+                follower.style.height = '40px';
+            });
+        });
+
+        // Intersection Observer for Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Active Nav Sync
+                    const id = entry.target.getAttribute('id');
+                    if (id) {
+                        document.querySelectorAll('.nav-dot').forEach(dot => {
+                            dot.classList.toggle('active', dot.getAttribute('href') === `#${id}`);
+                        });
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section, header, .reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
