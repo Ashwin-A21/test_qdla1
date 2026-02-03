@@ -122,24 +122,19 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 0 5vw;
         }
 
-        .hero-title {
-            font-family: "Alumni Sans Pinstripe", sans-serif;
-            font-size: clamp(6rem, 25vw, 18rem);
-            letter-spacing: -10px;
-            line-height: 0.8;
-            overflow: hidden;
+        .hero-logo {
+            width: 100%;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: revealLogo 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
         }
 
-        .hero-title span {
-            display: block;
-            transform: translateY(100%);
-            animation: revealTitle 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-        }
-
-        @keyframes revealTitle {
-            to { transform: translateY(0); }
+        @keyframes revealLogo {
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Bento Grid Section */
@@ -243,7 +238,7 @@
         }
 
         .big-link {
-            font-size: clamp(3rem, 10vw, 8rem);
+            font-size: clamp(2rem, 10vw, 8rem);
             font-family: "Alumni Sans Pinstripe", sans-serif;
             text-decoration: none;
             color: inherit;
@@ -273,12 +268,32 @@
             transform: translateY(0);
         }
 
+        /* Responsive Breakpoints */
         @media (max-width: 1024px) {
-            .bento-container { grid-template-columns: repeat(2, 1fr); }
-            .project-grid { grid-template-columns: 1fr; }
             nav { left: auto; right: 2rem; }
             body { cursor: auto; }
             #cursor, #follower { display: none; }
+            
+            .bento-container { grid-template-columns: repeat(2, 1fr); }
+            .bento-item.large, .bento-item.wide, .bento-item.tall { grid-column: span 2; grid-row: auto; }
+        }
+
+        @media (max-width: 768px) {
+            html { font-size: 14px; }
+            section { padding: 10vh 5vw; }
+            .section-header { margin-bottom: 3rem; }
+            
+            .bento-container { grid-template-columns: 1fr; }
+            .bento-item.large, .bento-item.wide, .bento-item.tall { grid-column: span 1; }
+            
+            .project-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .project-card { padding: 2rem; aspect-ratio: auto; min-height: 250px; }
+            .project-card h3 { font-size: 3.5rem; }
+
+            .hero-logo { max-width: 80vw; }
+            
+            footer { flex-direction: column; gap: 1rem; text-align: center; }
+            nav { bottom: 2rem; top: auto; left: 50%; transform: translateX(-50%); flex-direction: row; right: auto; }
         }
     </style>
 </head>
@@ -297,7 +312,34 @@
     </nav>
 
     <header id="home">
-        <h1 class="hero-title"><span>QDLA</span></h1>
+        <div class="hero-logo">
+            <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1340.06 656.4">
+                <defs>
+                    <style>
+                        .cls-1 {
+                            fill: url(#linear-gradient);
+                        }
+                    </style>
+                    <linearGradient id="linear-gradient" x1="2354.05" y1="-4022.2" x2="2508.61" y2="-4022.2" gradientTransform="translate(4387.85 2530.49) rotate(-90)" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#064ec1"/>
+                        <stop offset=".32" stop-color="#1f76d1"/>
+                        <stop offset=".51" stop-color="#2b88d9"/>
+                        <stop offset=".68" stop-color="#319ee0"/>
+                        <stop offset=".86" stop-color="#36afe6"/>
+                        <stop offset="1" stop-color="#38b5e8"/>
+                    </linearGradient>
+                </defs>
+                <g id="Layer_1-2" data-name="Layer 1">
+                    <g>
+                        <path class="cls-1" d="M364.43,35.48c-2.79,15.95-10.46,30.16-21.45,41.06-11.07,11.16-25.54,18.92-41.76,21.62-4.18.7-8.54,1.05-12.9,1.05,4.36,0,8.72.35,12.9,1.05,16.21,2.7,30.69,10.46,41.76,21.62,10.98,10.9,18.66,25.11,21.45,40.97.78,4.45,1.22,8.98,1.22,13.6,0-4.62.44-9.15,1.22-13.6,5.67-31.99,31.04-57.19,63.2-62.59,4.18-.7,8.54-1.05,12.9-1.05-4.36,0-8.72-.35-12.9-1.05-16.21-2.7-30.69-10.46-41.76-21.62-10.98-10.9-18.66-25.11-21.45-41.06-.78-4.45-1.22-8.98-1.22-13.6,0,4.62-.44,9.15-1.22,13.6ZM366.17,74.44c1.05,6.19,4.01,11.77,8.28,15.95,4.27,4.36,9.94,7.32,16.21,8.37,1.57.26,3.31.44,4.97.44-1.66,0-3.4.09-4.97.35-12.47,2.09-22.32,11.86-24.5,24.32-.35,1.66-.52,3.49-.52,5.23,0-1.74-.17-3.57-.44-5.23-1.13-6.19-4.1-11.68-8.28-15.87-4.36-4.36-9.94-7.41-16.21-8.46-1.66-.26-3.31-.35-5.06-.35,1.74,0,3.4-.17,5.06-.44,6.28-1.05,11.86-4.01,16.21-8.37s7.15-9.76,8.28-15.95c.26-1.66.44-3.49.44-5.23,0,1.74.17,3.57.52,5.23Z"/>
+                        <path d="M780.41,340.48c0,50.49-17.83,93.56-53.48,129.21-35.66,35.66-78.73,53.48-129.21,53.48s-93.56-17.82-129.21-53.48c-35.66-35.65-53.48-78.73-53.48-129.21s17.82-93.56,53.48-129.21c35.65-35.65,78.72-53.48,129.21-53.48h33.22l33.22,99.65h-66.43c-23.04,0-42.63,8.08-58.8,24.24-16.17,16.17-24.24,35.77-24.24,58.8s8.08,42.63,24.24,58.79c16.17,16.17,35.76,24.25,58.8,24.25s42.62-8.08,58.79-24.25c16.16-16.16,24.25-35.76,24.25-58.79V33.22L780.41,0v340.48Z"/>
+                        <rect x="829.81" width="99.65" height="523.17"/>
+                        <path d="M1340.06,340.48v180.6l-98.51-32.84v-147.76c0-22.77-8-42.14-23.97-58.12-15.98-15.98-35.36-23.97-58.12-23.97s-42.14,7.99-58.12,23.97c-15.98,15.98-23.97,35.36-23.97,58.12s7.99,42.14,23.97,58.12c15.98,15.98,35.36,23.97,58.12,23.97h65.67l-32.84,98.51h-32.84c-49.91,0-92.49-17.62-127.74-52.86-35.25-35.24-52.86-77.82-52.86-127.73s17.62-92.49,52.86-127.73c35.25-35.24,77.83-52.86,127.74-52.86s92.49,17.62,127.73,52.86c35.23,35.25,52.86,77.82,52.86,127.73Z"/>
+                        <path d="M365.65,340.62v315.79l-99.72-33.24v-282.55c0-23.04-8.09-42.65-24.27-58.83-16.18-16.18-35.79-24.27-58.83-24.27s-42.66,8.09-58.84,24.27c-16.18,16.18-24.26,35.79-24.26,58.83s8.08,42.66,24.26,58.84c16.18,16.18,35.79,24.26,58.84,24.26h66.48l-33.25,99.72h-33.24c-50.53,0-93.64-17.84-129.31-53.51C17.84,434.25,0,391.15,0,340.62s17.84-93.63,53.51-129.3c35.68-35.68,78.78-53.52,129.31-53.52s93.63,17.85,129.3,53.52c35.68,35.68,53.52,78.78,53.52,129.3Z"/>
+                    </g>
+                </g>
+            </svg>
+        </div>
         <p class="reveal" style="letter-spacing: 12px; opacity: 0.4; margin-top: 2rem;">WEB DEVELOPMENT STARTUP // ARCHITECTS</p>
     </header>
 
@@ -399,12 +441,16 @@
         // Mouse Engine
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
-            cursor.style.left = `${x}px`;
-            cursor.style.top = `${y}px`;
+            if (cursor) {
+                cursor.style.left = `${x}px`;
+                cursor.style.top = `${y}px`;
+            }
             
             // Lagged follower
-            follower.style.left = `${x}px`;
-            follower.style.top = `${y}px`;
+            if (follower) {
+                follower.style.left = `${x}px`;
+                follower.style.top = `${y}px`;
+            }
         });
 
         // Magnetic Effect
@@ -415,13 +461,17 @@
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
                 el.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-                follower.style.width = '100px';
-                follower.style.height = '100px';
+                if (follower) {
+                    follower.style.width = '100px';
+                    follower.style.height = '100px';
+                }
             });
             el.addEventListener('mouseleave', () => {
                 el.style.transform = `translate(0,0)`;
-                follower.style.width = '40px';
-                follower.style.height = '40px';
+                if (follower) {
+                    follower.style.width = '40px';
+                    follower.style.height = '40px';
+                }
             });
         });
 
