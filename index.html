@@ -6,15 +6,15 @@
     <title>QDLA | Web Development Startup</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital,wght@0,400;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #e0e5ec;
-            --text: #2d3436;
+            --bg: #ebf0f7;
+            --text: #1a1c20;
             --light: #ffffff;
-            --shadow: #a3b1c6;
-            --accent: #007aff;
-            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            --shadow: #c2cbd8;
+            --accent: #0066ff;
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         *, *::before, *::after {
@@ -33,34 +33,37 @@
             font-family: 'Inter', sans-serif;
             color: var(--text);
             text-transform: uppercase;
-            line-height: 1.2;
+            line-height: 1.1;
             overflow-x: hidden;
             cursor: none;
         }
 
-        /* Ambient Overlays */
+        /* Ambient Texture */
         .grain {
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.05;
+            opacity: 0.03;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* Neumorphic Core Classes */
+        /* Refined Neumorphic System */
         .neu-depth {
-            box-shadow: 9px 9px 16px var(--shadow), -9px -9px 16px var(--light);
-            border-radius: 2rem;
             background: var(--bg);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 2.5rem;
+            box-shadow: 12px 12px 24px var(--shadow), 
+                        -12px -12px 24px var(--light);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Unified Pressed Hover Effect */
         .neu-depth:hover {
-            box-shadow: inset 6px 6px 12px var(--shadow), inset -6px -6px 12px var(--light);
-            transform: scale(0.99);
+            box-shadow: inset 8px 8px 16px var(--shadow), 
+                        inset -8px -8px 16px var(--light);
+            transform: scale(0.995);
         }
 
         /* Custom Cursor */
@@ -87,7 +90,7 @@
             transform: translate(-50%, -50%);
         }
 
-        /* Navigation */
+        /* Nav Dock */
         nav {
             position: fixed;
             left: 3rem;
@@ -100,21 +103,56 @@
         }
 
         .nav-dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: var(--bg);
-            box-shadow: 3px 3px 6px var(--shadow), -3px -3px 6px var(--light);
+            box-shadow: 4px 4px 8px var(--shadow), -4px -4px 8px var(--light);
             transition: var(--transition);
         }
 
         .nav-dot.active {
             box-shadow: inset 2px 2px 4px var(--shadow), inset -2px -2px 4px var(--light);
-            transform: scale(1.3);
+            transform: scale(1.4);
             background: var(--accent);
         }
 
-        /* Hero Section */
+        /* Sections */
+        section {
+            padding: 15vh 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+        }
+
+        .section-header {
+            margin-bottom: 5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .section-tag {
+            font-size: 0.75rem;
+            letter-spacing: 6px;
+            opacity: 0.4;
+            font-weight: 700;
+        }
+
+        .section-line {
+            height: 1px;
+            flex-grow: 1;
+            background: var(--shadow);
+            opacity: 0.5;
+        }
+
+        /* Hero */
         header {
             height: 100vh;
             display: flex;
@@ -127,24 +165,30 @@
 
         .hero-logo {
             width: 100%;
-            max-width: 650px;
-            height: auto;
+            max-width: 500px;
             opacity: 0;
-            transform: translateY(30px);
-            animation: revealLogo 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            transform: translateY(20px);
+            animation: revealLogo 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes revealLogo {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Bento Grid Section */
+        .hero-sub {
+            letter-spacing: 12px;
+            opacity: 0.3;
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Bento Grid */
         .bento-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-auto-rows: minmax(180px, auto);
-            gap: 2rem;
-            margin-top: 4rem;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(160px, auto);
+            gap: 1.5rem;
         }
 
         .bento-item {
@@ -152,119 +196,105 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            cursor: default;
         }
 
-        .bento-item.large { grid-column: span 2; grid-row: span 2; }
-        .bento-item.wide { grid-column: span 2; }
-        .bento-item.tall { grid-row: span 2; }
+        .bento-item h4 { font-size: 0.7rem; opacity: 0.4; letter-spacing: 4px; }
+        .bento-item p { font-size: 1rem; margin-top: 1rem; text-transform: none; color: #555; line-height: 1.5; font-weight: 400; }
+        .bento-val { 
+            font-size: 5rem; 
+            font-family: "Alumni Sans Pinstripe", sans-serif; 
+            line-height: 1;
+            margin: 1rem 0;
+            transition: var(--transition);
+            opacity: 0.8;
+        }
 
-        .bento-item h4 { font-size: 0.8rem; opacity: 0.5; letter-spacing: 4px; transition: var(--transition); }
-        .bento-item p { font-size: 1.1rem; margin-top: 1rem; text-transform: none; color: #555; transition: var(--transition); line-height: 1.4; }
-        .bento-item:hover h4, .bento-item:hover p { color: var(--accent); opacity: 1; }
-        .bento-val { font-size: 3.5rem; font-family: "Alumni Sans Pinstripe", sans-serif; transition: var(--transition); }
-        .bento-item:hover .bento-val { color: var(--accent); }
+        .bento-item:hover .bento-val { color: var(--accent); opacity: 1; }
+
+        /* Bento Sizes */
+        .col-6 { grid-column: span 6; }
+        .col-4 { grid-column: span 4; }
+        .col-3 { grid-column: span 3; }
+        .row-2 { grid-row: span 2; }
 
         /* Project Cards */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 4rem;
-        }
-
-        .project-card {
-            padding: 4rem;
-            aspect-ratio: 1/1.1;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .project-card:hover h3 { color: var(--accent); }
-
-        .project-card h3 { font-size: 4.5rem; font-family: "Alumni Sans Pinstripe", sans-serif; font-weight: 400; transition: var(--transition); }
-        .project-card .tag { font-size: 0.7rem; letter-spacing: 4px; opacity: 0.4; transition: var(--transition); }
-
-        /* Toolkit Section */
-        .pill-box {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-
-        .pill {
-            padding: 1.5rem 3rem;
-            font-size: 1.2rem;
-            cursor: default;
-        }
-
-        .pill:hover {
-            color: var(--accent);
-        }
-
-        /* Section Layouts */
-        section {
-            padding: 15vh 10vw;
-            min-height: 100vh;
-            width: 100%;
-        }
-
-        .section-header {
-            margin-bottom: 6rem;
-            display: flex;
-            align-items: center;
             gap: 2rem;
         }
 
-        .section-line {
-            height: 1px;
-            flex-grow: 1;
-            background: var(--shadow);
+        .project-card {
+            padding: 3.5rem;
+            aspect-ratio: 1.2/1;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .section-tag {
-            font-size: 0.8rem;
-            letter-spacing: 6px;
-            opacity: 0.5;
-            white-space: nowrap;
+        .project-card h3 { 
+            font-size: 5rem; 
+            font-family: "Alumni Sans Pinstripe", sans-serif; 
+            font-weight: 400; 
+            transition: var(--transition);
+            line-height: 0.8;
         }
 
-        /* Footer & Contact */
+        .project-card .tag { font-size: 0.7rem; letter-spacing: 4px; opacity: 0.4; margin-bottom: 1rem; display: block; }
+
+        /* Toolkit */
+        .pill-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+        }
+
+        .pill {
+            padding: 1.2rem 2.5rem;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* Contact */
         .contact-card {
-            padding: 10vh 5vw;
+            padding: 8vh 2vw;
             text-align: center;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .contact-card:hover .big-link {
-            letter-spacing: 15px;
-            color: var(--accent);
         }
 
         .big-link {
-            font-size: clamp(2.5rem, 10vw, 8rem);
+            font-size: clamp(3rem, 8vw, 6.5rem);
             font-family: "Alumni Sans Pinstripe", sans-serif;
             text-decoration: none;
             color: inherit;
             display: block;
             margin: 2rem 0;
             transition: var(--transition);
+            letter-spacing: -2px;
+        }
+
+        .big-link:hover {
+            letter-spacing: 12px;
+            color: var(--accent);
         }
 
         footer {
-            padding: 4rem 10vw;
+            padding: 4rem 5vw;
             display: flex;
             justify-content: space-between;
-            font-size: 0.7rem;
-            opacity: 0.4;
+            font-size: 0.65rem;
+            opacity: 0.3;
             letter-spacing: 3px;
+            font-weight: 600;
         }
 
-        /* Scroll Reveal */
+        /* Scroll Animation */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
         }
 
         .reveal.active {
@@ -272,64 +302,28 @@
             transform: translateY(0);
         }
 
-        /* Responsive Breakpoints */
-        @media (max-width: 1200px) {
-            .bento-container { grid-template-columns: repeat(3, 1fr); }
-            .bento-item.large { grid-column: span 2; }
-        }
-
+        /* Responsive */
         @media (max-width: 1024px) {
-            nav { 
-                left: auto; 
-                right: 2rem; 
-                top: 50%;
-                transform: translateY(-50%);
-            }
-            body { cursor: auto; }
+            .col-4, .col-3 { grid-column: span 6; }
+            .project-grid { grid-template-columns: 1fr; }
             #cursor, #follower { display: none; }
-            
-            .bento-container { grid-template-columns: repeat(2, 1fr); }
-            .bento-item.large, .bento-item.wide, .bento-item.tall { grid-column: span 2; grid-row: auto; }
+            body { cursor: auto; }
+            nav { left: auto; right: 1.5rem; }
         }
 
         @media (max-width: 768px) {
-            html { font-size: 14px; }
-            section { padding: 10vh 5vw; }
-            .section-header { margin-bottom: 3rem; }
-            
-            .bento-container { grid-template-columns: 1fr; gap: 1.5rem; }
-            .bento-item { padding: 2rem; }
-            .bento-item.large, .bento-item.wide, .bento-item.tall { grid-column: span 1; }
-            
-            .project-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .project-card { padding: 2.5rem; aspect-ratio: auto; min-height: 280px; }
-            .project-card h3 { font-size: 3.8rem; }
-
+            .col-6, .col-4, .col-3 { grid-column: span 12; }
             .hero-logo { max-width: 85vw; }
-            
-            footer { flex-direction: column; gap: 1.5rem; text-align: center; }
-            
+            .section-header { margin-bottom: 3rem; }
+            .bento-val { font-size: 4rem; }
+            .project-card h3 { font-size: 4rem; }
             nav { 
-                bottom: 2rem; 
-                top: auto; 
-                left: 50%; 
-                transform: translateX(-50%); 
-                flex-direction: row; 
-                right: auto; 
-                padding: 1rem 1.5rem;
-                background: rgba(224, 229, 236, 0.8);
-                backdrop-filter: blur(10px);
-                border-radius: 100px;
-                box-shadow: 6px 6px 12px var(--shadow), -6px -6px 12px var(--light);
+                bottom: 2rem; top: auto; left: 50%; 
+                transform: translateX(-50%); flex-direction: row; 
+                padding: 1rem; background: rgba(235, 240, 247, 0.8);
+                backdrop-filter: blur(10px); border-radius: 100px;
+                box-shadow: 4px 4px 8px var(--shadow);
             }
-            .nav-dot { width: 10px; height: 10px; }
-        }
-
-        @media (max-width: 480px) {
-            .section-tag { font-size: 0.7rem; letter-spacing: 3px; }
-            .bento-val { font-size: 3rem; }
-            .project-card h3 { font-size: 3rem; }
-            .big-link { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -349,8 +343,7 @@
 
     <header id="home">
         <div class="hero-logo">
-            <!-- QDLA SVG Logo Integration -->
-            <svg id="QDLA_Logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1340.06 656.4">
+            <svg id="QDLA_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1340.06 656.4">
                 <defs>
                     <linearGradient id="linear-gradient" x1="2354.05" y1="-4022.2" x2="2508.61" y2="-4022.2" gradientTransform="translate(4387.85 2530.49) rotate(-90)" gradientUnits="userSpaceOnUse">
                         <stop offset="0" stop-color="#064ec1"/>
@@ -370,130 +363,152 @@
                 </g>
             </svg>
         </div>
-        <p class="reveal" style="letter-spacing: 12px; opacity: 0.4; margin-top: 2rem;">WEB DEVELOPMENT STARTUP // ARCHITECTS</p>
+        <p class="hero-sub reveal">WEB DEVELOPMENT STARTUP // ARCHITECTS</p>
     </header>
 
-    <!-- Bento Grid Section -->
     <section id="about">
-        <div class="section-header reveal">
-            <span class="section-tag">MISSION_STATEMENT</span>
-            <div class="section-line"></div>
-        </div>
-        <div class="bento-container">
-            <div class="neu-depth bento-item large reveal">
-                <h4>PURPOSE</h4>
-                <div class="bento-val">01</div>
-                <p>QDLA builds high-performance digital ecosystems where technical complexity meets intuitive UI logic.</p>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">MISSION_STATEMENT</span>
+                <div class="section-line"></div>
             </div>
-            <div class="neu-depth bento-item reveal">
-                <h4>AGILE</h4>
-                <div class="bento-val">DEV</div>
-                <p>Fast deployment cycles and scalable code standards.</p>
-            </div>
-            <div class="neu-depth bento-item reveal">
-                <h4>ORIGIN</h4>
-                <p>GLOBAL<br>REMOTE<br>DIRECT</p>
-            </div>
-            <div class="neu-depth bento-item wide reveal">
-                <h4>CAPABILITIES</h4>
-                <div class="bento-val">CLOUD</div>
-                <p>Enterprise infrastructure engineered for the modern decentralized web.</p>
-            </div>
-            <div class="neu-depth bento-item tall reveal">
-                <h4>PRECISION</h4>
-                <div class="bento-val">99.9%</div>
-                <p>Optimized uptime and flawless interactive performance benchmarks.</p>
-            </div>
-            <div class="neu-depth bento-item reveal">
-                <h4>EST.</h4>
-                <div class="bento-val">2026</div>
+            <div class="bento-container">
+                <div class="neu-depth bento-item col-6 row-2 reveal">
+                    <h4>PURPOSE</h4>
+                    <div class="bento-val">01</div>
+                    <p>QDLA constructs high-fidelity digital ecosystems where complex engineering meets intuitive UX logic.</p>
+                </div>
+                <div class="neu-depth bento-item col-3 reveal">
+                    <h4>AGILE</h4>
+                    <div class="bento-val">DEV</div>
+                    <p>Fast deployment cycles.</p>
+                </div>
+                <div class="neu-depth bento-item col-3 reveal">
+                    <h4>ORIGIN</h4>
+                    <p>GLOBAL<br>REMOTE<br>DIRECT</p>
+                </div>
+                <div class="neu-depth bento-item col-6 reveal">
+                    <h4>CAPABILITIES</h4>
+                    <div class="bento-val">CLOUD</div>
+                    <p>Enterprise infrastructure engineered for the decentralized web.</p>
+                </div>
+                <div class="neu-depth bento-item col-3 reveal">
+                    <h4>PRECISION</h4>
+                    <div class="bento-val">99%</div>
+                </div>
+                <div class="neu-depth bento-item col-3 reveal">
+                    <h4>EST.</h4>
+                    <div class="bento-val">2026</div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="work">
-        <div class="section-header reveal">
-            <span class="section-tag">ENGINEERED_EXHIBITS</span>
-            <div class="section-line"></div>
-        </div>
-        <div class="project-grid">
-            <a href="#" class="neu-depth project-card reveal magnetic">
-                <span class="tag">BACKEND</span>
-                <h3>CORE<br>SYNC</h3>
-            </a>
-            <a href="#" class="neu-depth project-card reveal magnetic">
-                <span class="tag">SPATIAL</span>
-                <h3>QDLA<br>WORLD</h3>
-            </a>
-            <a href="#" class="neu-depth project-card reveal magnetic">
-                <span class="tag">INTERFACE</span>
-                <h3>MODULAR</h3>
-            </a>
-            <a href="#" class="neu-depth project-card reveal magnetic">
-                <span class="tag">ARCHITECTURE</span>
-                <h3>INFRA</h3>
-            </a>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">ENGINEERED_EXHIBITS</span>
+                <div class="section-line"></div>
+            </div>
+            <div class="project-grid">
+                <a href="#" class="neu-depth project-card reveal magnetic">
+                    <div>
+                        <span class="tag">BACKEND</span>
+                        <h3>CORE_SYNC</h3>
+                    </div>
+                    <p style="text-transform: none; opacity: 0.5;">Real-time data synchronization engine.</p>
+                </a>
+                <a href="#" class="neu-depth project-card reveal magnetic">
+                    <div>
+                        <span class="tag">SPATIAL</span>
+                        <h3>QDLA_WORLD</h3>
+                    </div>
+                    <p style="text-transform: none; opacity: 0.5;">Interactive 3D environment research.</p>
+                </a>
+                <a href="#" class="neu-depth project-card reveal magnetic">
+                    <div>
+                        <span class="tag">INTERFACE</span>
+                        <h3>MODULAR_OS</h3>
+                    </div>
+                    <p style="text-transform: none; opacity: 0.5;">Component-driven design system.</p>
+                </a>
+                <a href="#" class="neu-depth project-card reveal magnetic">
+                    <div>
+                        <span class="tag">INFRA</span>
+                        <h3>SYNC_LAYERS</h3>
+                    </div>
+                    <p style="text-transform: none; opacity: 0.5;">Multi-tenant cloud architecture.</p>
+                </a>
+            </div>
         </div>
     </section>
 
     <section id="stack">
-        <div class="section-header reveal">
-            <span class="section-tag">CORE_STACK</span>
-            <div class="section-line"></div>
-        </div>
-        <div class="pill-box">
-            <div class="neu-depth pill reveal">NEXT.JS ENGINE</div>
-            <div class="neu-depth pill reveal">THREE.JS / WEBGL</div>
-            <div class="neu-depth pill reveal">DOCKER / CLOUD</div>
-            <div class="neu-depth pill reveal">SCALABLE UI</div>
-            <div class="neu-depth pill reveal">NODE ARCHITECTURE</div>
-            <div class="neu-depth pill reveal">TYPESCRIPT</div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">CORE_STACK</span>
+                <div class="section-line"></div>
+            </div>
+            <div class="pill-box">
+                <div class="neu-depth pill reveal">NEXT.JS 15</div>
+                <div class="neu-depth pill reveal">THREE.JS</div>
+                <div class="neu-depth pill reveal">TYPESCRIPT</div>
+                <div class="neu-depth pill reveal">DOCKER</div>
+                <div class="neu-depth pill reveal">GLSL SHADERS</div>
+                <div class="neu-depth pill reveal">REDEX ENGINE</div>
+            </div>
         </div>
     </section>
 
     <section id="contact">
-        <div class="neu-depth contact-card reveal">
-            <span class="section-tag">START_SESSION</span>
-            <a href="mailto:hello@qdla.dev" class="big-link magnetic">GET IN TOUCH</a>
-            <p style="opacity: 0.4; letter-spacing: 5px;">WWW.QDLA.DEV</p>
+        <div class="container">
+            <div class="neu-depth contact-card reveal">
+                <span class="section-tag">START_SESSION</span>
+                <a href="mailto:hello@qdla.dev" class="big-link magnetic">ENGAGE_QDLA</a>
+                <p style="opacity: 0.4; letter-spacing: 5px;">DIRECT_ENCRYPTED_LINE</p>
+            </div>
         </div>
     </section>
 
     <footer>
-        <div>QDLA // WEB DEVELOPMENT STARTUP</div>
-        <div>ALL RIGHTS RESERVED 2026</div>
+        <div class="container" style="display: flex; justify-content: space-between; width: 100%; max-width: 1400px;">
+            <div>QDLA // DIGITAL ARCHITECTS</div>
+            <div>STABLE_VER_2.0.6</div>
+        </div>
     </footer>
 
     <script>
         const cursor = document.getElementById('cursor');
         const follower = document.getElementById('follower');
 
-        // Mouse Engine with Null Safety
+        // Smooth Mouse Engine
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             if (cursor) {
                 cursor.style.left = `${x}px`;
                 cursor.style.top = `${y}px`;
             }
-            
-            // Lagged follower
             if (follower) {
-                follower.style.left = `${x}px`;
-                follower.style.top = `${y}px`;
+                // Smooth lag effect
+                setTimeout(() => {
+                    follower.style.left = `${x}px`;
+                    follower.style.top = `${y}px`;
+                }, 50);
             }
         });
 
-        // Magnetic Effect
+        // Magnetic Logic
         const magnets = document.querySelectorAll('.magnetic');
         magnets.forEach(el => {
             el.addEventListener('mousemove', (e) => {
                 const rect = el.getBoundingClientRect();
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
-                el.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+                el.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
                 if (follower) {
-                    follower.style.width = '100px';
-                    follower.style.height = '100px';
+                    follower.style.width = '120px';
+                    follower.style.height = '120px';
+                    follower.style.background = 'rgba(0,102,255,0.03)';
                 }
             });
             el.addEventListener('mouseleave', () => {
@@ -501,29 +516,36 @@
                 if (follower) {
                     follower.style.width = '40px';
                     follower.style.height = '40px';
+                    follower.style.background = 'transparent';
                 }
             });
         });
 
-        // Intersection Observer for Reveal & Nav Sync
+        // Reveal Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    
-                    // Sync Nav Dots
-                    const id = entry.target.getAttribute('id');
-                    if (id) {
-                        document.querySelectorAll('.nav-dot').forEach(dot => {
-                            dot.classList.toggle('active', dot.getAttribute('href') === `#${id}`);
-                        });
-                    }
                 }
             });
         }, { threshold: 0.1 });
 
-        // Observe both sections and individual reveal elements
-        document.querySelectorAll('section, header, .reveal').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Active Link Sync
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section, header');
+            const dots = document.querySelectorAll('.nav-dot');
+            let current = "";
+            sections.forEach(s => {
+                const top = s.offsetTop;
+                if (pageYOffset >= top - 200) current = s.getAttribute('id');
+            });
+            dots.forEach(d => {
+                d.classList.remove('active');
+                if (d.getAttribute('href') === `#${current}`) d.classList.add('active');
+            });
+        });
     </script>
 </body>
 </html>
